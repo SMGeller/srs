@@ -996,54 +996,8 @@ def export_notecard(request, pk):
         new_file.write(b'\n#\n')
 
     #Create Response to send temporary file to user
-    response = HttpResponse(new_file.getvalue(), content_type='text/plain')
-    response['Content-Disposition'] = 'attachment; filename="%s_SRS_EXPORT.txt"' % notefile_Name.name
-   
-    #Close file
-    new_file.close()
-
-    return response
-
-    # if request.method == 'GET':
-    #     try:
-    #        return create_file(pk, path, request)
-    #     except Exception as e:
-    #         messages.info(request, 'The path you have entered is not valid.')
-    # else:
-    #     return redirect('notecard_list', pk=pk)
-
-    #return render(request, 'srs/export_notecard.html', {'form': form, 'pk':pk, 'path': path})
-
-def create_file(pk, path, request):
-    #Get notecard list associated to given notefile
-    notefile_Name = Notefile.objects.filter(author=request.user).get(pk=pk)
-    notecards = Notecard.objects.filter(author=request.user).filter(notefile=notefile_Name)
-    #Create temporary file for download
-    new_file = io.StringIO()
-    #Add required header for SQI file
-    new_file.write('$$<IMPORT>$$\n')
-    for notecard in notecards:
-        #Add keyword start delimiter
-        new_file.write(b'*\n')
-        #Add keywords
-        my_keywords_list = notecard.keywords.replace(' ','').split(',')
-        for kw in my_keywords_list:
-            new_file.write(bytes(kw,'utf-8'))
-            new_file.write(b'\n')
-        #Add KEYWORD-END & HEADER-START DELIMITER
-        new_file.write(b'!\n')
-        #Add header
-        new_file.write(bytes(notecard.name, 'utf-8'))
-        #Add HEADER-END & BODY-START DELIMITER
-        new_file.write(b'\n$\n')
-        #Add body
-        new_file.write(bytes(notecard.body, 'utf-8'))
-        #Add BODY-END DELIMITER
-        new_file.write(b'\n#\n')
-
-    #Create Response to send temporary file to user
-    response = HttpResponse(new_file.getvalue(), content_type='text/plain')
-    response['Content-Disposition'] = 'attachment; filename="%s.txt"' % notefile_Name.name
+    response = HttpResponse(new_file.getvalue(), content_type='application/octet-stream')
+    response['Content-Disposition'] = 'attachment; filename="%s.srsnote"' % notefile_Name.name
    
     #Close file
     new_file.close()
