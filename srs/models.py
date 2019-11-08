@@ -16,7 +16,7 @@ def create_folder(sender, instance, created, **kwargs):
 post_save.connect(create_folder, sender=User)
 
 class Directory(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     created_date = models.DateTimeField(
             default=timezone.now)
@@ -30,7 +30,7 @@ class Directory(models.Model):
         return self.name
 
 class Notefile(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     keywords = models.TextField(null=True)
     label = models.TextField(null=True)
@@ -50,7 +50,7 @@ class Notefile(models.Model):
         return self.name
 
 class Notecard(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     keywords = models.TextField(blank=True, null=True)
     label = models.TextField(blank=True, null=True)
@@ -70,7 +70,7 @@ class Notecard(models.Model):
         return self.name
 
 class Video(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     url = models.CharField(max_length=200)
     video = models.FileField(upload_to='videos/%Y/%m/%d/')
@@ -87,7 +87,7 @@ class Video(models.Model):
         return self.title
 
 class Audio(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     url = models.CharField(max_length=200)
     audio = models.FileField(upload_to='audio/%Y/%m/%d/')
@@ -103,7 +103,7 @@ class Audio(models.Model):
         return self.title
 
 class Document(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     source = models.CharField(max_length=200)
     name = models.CharField(max_length=100)
     document = models.FileField(upload_to='documents/%Y/%m/%d/')
@@ -119,7 +119,7 @@ class Document(models.Model):
         return self.name
 
 class Equation(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     equation = models.CharField(max_length=200)
     notecard = models.ForeignKey(Notecard, null=True, on_delete=models.CASCADE)
     created_date = models.DateTimeField(
@@ -133,7 +133,7 @@ class Equation(models.Model):
         return self.equation
 
 class Image(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     source = models.CharField(max_length=200)
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/%Y/%m/%d/')

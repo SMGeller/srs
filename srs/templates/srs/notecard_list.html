@@ -63,7 +63,10 @@
     <a onclick="deactivate()"><h2>Delete</h2></a>
     <a onclick="clickSelectedNotecard()"><h2>Select</h2></a>
     <a href="{% url 'import_notecard' pk=pk %}"><h2>Import</h2></a>
-    <a href="{% url 'export_notecard' pk=pk %}"><h2>Export</h2></a>
+    <form action="{% url 'export_notecard' pk=pk %}" method='GET'>
+        <button type="submit" class="save btn btn-default">Export</button>
+    </form>
+    <!--<a href="{% url 'export_notecard' pk=pk %}"><h2>Export</h2></a> -->
     <a onclick="showSelectedNotecardLabel()"><h2>Label</h2></a>
     <a href="{% url 'notefile_detail' pk=pk %}"><h2>Back</h2></a>
 {% endblock %}

@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^admin/$', RedirectView.as_view(url='/admin/'), name='admin'),
     url(r'^$', views.welcome_text, name='welcome'),
 	url(r'^create_account/', views.create_account, name='create_account'),
-	url(r'^login/', view_auth.login, name="login"),
+	url(r'^login/', view_auth.LoginView.as_view(), name="login"),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^contact/$', views.contact, name='contact'),
     url(r'^about/$', views.about, name='about'),

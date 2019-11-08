@@ -1,0 +1,126 @@
+  > git pull
+  214  10/04/18 14:56:14 diff mysite/settings.py ~/settings.py 
+  215  10/04/18 14:56:40 clear
+  216  10/04/18 14:56:41 ls -l
+  217  10/04/18 14:56:59 cd mysite/
+  218  10/04/18 14:57:01 vim settings.py 
+  219  10/04/18 15:02:40 vim ~/settings.py 
+  220  10/04/18 15:03:29 cd ..
+  221  10/04/18 15:03:31 git pull
+  222  10/04/18 15:03:41 vim mysite/settings.py 
+  223  10/04/18 15:09:00 cd ~
+  224  10/04/18 15:09:01 ls -l
+  225  10/04/18 15:09:08 vim secrets.txt
+  226  10/04/18 15:10:19 cat se
+  227  10/04/18 15:10:25 cat ~/secrets.txt 
+  228  10/04/18 15:10:44 cd /srv/appsroot/cise-srs/mysite/
+  229  10/04/18 15:10:49 vim settings.py 
+  230  10/04/18 15:13:31 apachectl restart
+  231  10/04/18 15:13:48 cd ..
+  232  10/04/18 15:13:49 ls -l
+  233  10/04/18 15:13:59 source myvenv/bin/activate
+  234  10/04/18 15:15:06 python manage.py migrate
+  235  10/04/18 15:17:22 pip install mysqlclient
+  236  10/04/18 15:18:04 yum search libmariadbclient-dev
+  237  10/04/18 15:19:19 yum search libmysqlclient-dev
+  238  10/04/18 15:20:07 yum search mysql-client
+  239  10/04/18 15:20:51 yum list installed | grep mysql
+  240  10/04/18 15:21:00 yum search mysq
+  241  10/04/18 15:21:05 yum search mysql
+  242  10/04/18 15:21:42 yum install mariadb-libs
+  243  10/04/18 15:22:53 pip install mysqlclient
+  244  10/04/18 15:23:12 yum install mariadb-devel
+  245  10/04/18 15:23:33 pip install mysqlclient
+  246  10/04/18 15:23:48 pip freeze
+  247  10/04/18 15:24:59 python manage.py migrate
+  248  10/04/18 15:25:35 python manage.py createsuperuser 
+  249  10/04/18 15:31:47 cd /etc/httpd/conf.d/
+  250  10/04/18 15:31:50 ls -l
+  251  10/04/18 15:32:10 vim cise-force-ssl.conf
+  252  10/04/18 15:32:38 apachectl configtest
+  253  10/04/18 15:32:41 apachectl restart
+  254  10/04/18 15:43:17 python manual.conf collectstatic
+  255  10/04/18 15:43:28 cd /srv/appsroot/cise-srs/
+  256  10/04/18 15:43:43 python manage.py collecstatic
+  257  10/04/18 15:43:48 python manage.py collecstatics
+  258  10/04/18 15:44:09 python manage.py collectstatic
+  259  10/04/18 15:44:43 exit
+  260  11/04/18 13:48:28 yum upgrade
+  261  11/04/18 13:57:03 shutdown -h now
+  262  11/04/18 15:54:05 clear
+  263  11/04/18 15:54:16 cd /etc/httpd/conf.d/
+  264  11/04/18 15:54:17 ls
+  265  11/04/18 15:54:19 ls -l
+  266  11/04/18 15:55:09 exit
+  267  11/04/18 15:55:41 clear
+  268  11/04/18 15:55:57 ls -l
+  269  11/04/18 15:56:00 rm Python-3.6.5.tar.xz 
+  270  11/04/18 15:56:10 cd /etc/httpd/conf.d/
+  271  11/04/18 15:56:11 ls -l
+  272  11/04/18 15:56:16 vim cise-django.conf 
+  273  11/04/18 16:17:00 systemctl status firewalld
+  274  11/04/18 16:36:52 cd /srv/
+  275  11/04/18 16:36:53 ls -l
+  276  11/04/18 16:36:55 cd appsroot/
+  277  11/04/18 16:36:56 ls -l
+  278  11/04/18 16:36:58 cd cise-srs/
+  279  11/04/18 16:36:59 ls -l
+  280  11/04/18 16:41:32 git pull
+  281  11/04/18 16:41:39 clear
+  282  11/04/18 16:41:40 ls -l
+  283  11/04/18 16:41:57 rm db.sqlite3 
+  284  11/04/18 16:41:59 ls -l
+  285  11/04/18 16:42:00 git status
+  286  11/04/18 16:46:16 git pull
+  287  11/04/18 16:47:32 ls -l
+  288  11/04/18 16:47:37 vim my.cnf
+  289  11/04/18 16:48:02 cd ~
+  290  11/04/18 16:48:03 ls -l
+  291  11/04/18 16:48:06 cat se
+  292  11/04/18 16:48:09 cat secrets.txt 
+  293  11/04/18 16:48:21 cd /srv/appsroot/cise-srs/
+  294  11/04/18 16:48:29 vim my.cnf 
+  295  11/04/18 16:48:39 clear
+  296  11/04/18 16:48:54 source myvenv/bin/activate
+  297  11/04/18 16:49:11 python manage.py migrate
+  298  11/04/18 16:49:44 python manage.py collectstatic
+  299  11/04/18 16:50:19 python manage.py createsuperuser
+  300  11/04/18 16:50:56 touch mysite/wsgi.py 
+  301  12/04/18 10:31:16 exit
+  302  18/04/18 16:43:40 reboot
+  303  18/04/18 16:46:46 ipconfig
+  304  18/04/18 16:46:48 ifconfig
+  305  18/04/18 16:46:57 nmtui
+  306  18/04/18 16:47:21 clear
+  307  18/04/18 16:47:23 ifconfig
+  308  18/04/18 16:47:50 reboot
+  309  18/04/18 16:48:30 ifconfig
+  310  18/04/18 16:49:23 nmtui
+  311  18/04/18 16:49:41 ifconfig
+  312  18/04/18 16:50:32 ifconfig eth0 down
+  313  18/04/18 16:50:37 ifconfig eth0 up
+  314  18/04/18 16:50:39 ifconfig
+  315  18/04/18 16:56:04 ifconfig eth0 down
+  316  18/04/18 16:56:06 ifconfig eth0 up
+  317  18/04/18 16:56:10 ifconfig
+  318  18/04/18 16:56:18 reboot
+  319  18/04/18 16:56:48 ifconfig
+  320  18/04/18 17:01:35 cd /etc/httpd/conf.d/
+  321  18/04/18 17:01:36 ls -l
+  322  18/04/18 17:01:39 vim cise-django.conf 
+  323  18/04/18 17:01:50 clear
+  324  18/04/18 17:01:51 ls -l
+  325  18/04/18 17:02:00 vim cise-force-ssl.conf 
+  326  18/04/18 17:02:18 cd ..
+  327  18/04/18 17:02:19 ls -l
+  328  18/04/18 17:02:21 cd conf
+  329  18/04/18 17:02:23 ls -l
+  330  18/04/18 17:02:24 vim httpd.conf 
+  331  18/04/18 17:07:50 reboot
+  332  18/04/18 17:08:12 ifconfig
+  333  18/04/18 17:16:34 shutdown -h now
+  334  19/04/18 16:37:21 cd /srv/appsroot/cise-srs/
+  335  19/04/18 16:37:23 ls -l
+  336  19/04/18 16:37:49 cd ~
+  337  19/04/18 16:37:53 ls -l
+  338  19/04/18 16:38:03 history > deploy.txt

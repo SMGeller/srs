@@ -4,6 +4,7 @@ import os.path
 import re
 import subprocess
 import time
+import io
 
 import requests
 from django.contrib import messages
@@ -16,6 +17,7 @@ from django.utils import timezone
 from pytube import YouTube
 from PIL import Image
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 from srs.forms import NotefileForm, DirectoryForm, ImportForm, VideoForm, AudioForm, DocumentForm, NotecardForm, DeleteNotecardForm, \
     EquationForm, ImageForm, DuplicateNotecardForm, RegistrationForm
@@ -966,31 +968,12 @@ def init_notecard(request, keywords, header, body, notefilePK):
 def export_notecard(request, pk):
     # calculate path
     notefile_Name = Notefile.objects.filter(author=request.user).get(pk=pk)
-    path = getPath(request, notefile_Name.directory) + notefile_Name.name + "/"
+    #path = getPath(request, notefile_Name.directory) + notefile_Name.name + "/"
+    print("Inside export_notecard")
 
-    if request.method == 'POST':
-        form = ImportForm(request.POST)
-        if form.is_valid():
-            #Get full path.
-            cd = form.cleaned_data
-            path = cd.get('path')
-            path = path.upper()
-            try:
-                create_file(pk, path)
-                return redirect('notecard_list', pk=pk)
-            except:
-                messages.info(request, 'The path you have entered is not valid.')
-    else:
-        form = ImportForm()
-
-    return render(request, 'srs/export_notecard.html', {'form': form, 'pk':pk, 'path': path})
-
-def create_file(pk, path):
-    #Get notecard list associated to given notefile
-    notefile_Name = Notefile.objects.filter(author=request.user).get(pk=pk)
     notecards = Notecard.objects.filter(author=request.user).filter(notefile=notefile_Name)
-    #Create file
-    new_file = open(path,'wb')
+    #Create temporary file for download
+    new_file = io.BytesIO()
     #Add required header for SQI file
     new_file.write(b'$$<IMPORT>$$\n')
     for notecard in notecards:
@@ -1011,5 +994,58 @@ def create_file(pk, path):
         new_file.write(bytes(notecard.body, 'utf-8'))
         #Add BODY-END DELIMITER
         new_file.write(b'\n#\n')
+
+    #Create Response to send temporary file to user
+    response = HttpResponse(new_file.getvalue(), content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename="%s_SRS_EXPORT.txt"' % notefile_Name.name
+   
     #Close file
     new_file.close()
+
+    return response
+
+    # if request.method == 'GET':
+    #     try:
+    #        return create_file(pk, path, request)
+    #     except Exception as e:
+    #         messages.info(request, 'The path you have entered is not valid.')
+    # else:
+    #     return redirect('notecard_list', pk=pk)
+
+    #return render(request, 'srs/export_notecard.html', {'form': form, 'pk':pk, 'path': path})
+
+def create_file(pk, path, request):
+    #Get notecard list associated to given notefile
+    notefile_Name = Notefile.objects.filter(author=request.user).get(pk=pk)
+    notecards = Notecard.objects.filter(author=request.user).filter(notefile=notefile_Name)
+    #Create temporary file for download
+    new_file = io.StringIO()
+    #Add required header for SQI file
+    new_file.write('$$<IMPORT>$$\n')
+    for notecard in notecards:
+        #Add keyword start delimiter
+        new_file.write(b'*\n')
+        #Add keywords
+        my_keywords_list = notecard.keywords.replace(' ','').split(',')
+        for kw in my_keywords_list:
+            new_file.write(bytes(kw,'utf-8'))
+            new_file.write(b'\n')
+        #Add KEYWORD-END & HEADER-START DELIMITER
+        new_file.write(b'!\n')
+        #Add header
+        new_file.write(bytes(notecard.name, 'utf-8'))
+        #Add HEADER-END & BODY-START DELIMITER
+        new_file.write(b'\n$\n')
+        #Add body
+        new_file.write(bytes(notecard.body, 'utf-8'))
+        #Add BODY-END DELIMITER
+        new_file.write(b'\n#\n')
+
+    #Create Response to send temporary file to user
+    response = HttpResponse(new_file.getvalue(), content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename="%s.txt"' % notefile_Name.name
+   
+    #Close file
+    new_file.close()
+
+    return response
