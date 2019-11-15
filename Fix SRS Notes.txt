@@ -1,0 +1,4 @@
+Fix SRS Notes
+-------------------
+settings.py file missing hostname and port for department MySQL database
+	-Hopefully can get from CISE admins
