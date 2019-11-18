@@ -32,7 +32,8 @@ class RegistrationForm(UserCreationForm):
         return user
 
 class ImportForm(forms.Form):
-    path = forms.CharField(label='Path', max_length=100)
+    # path = forms.CharField(label='Path', max_length=100)
+    file = forms.FileField()
 
 class NotefileForm(forms.ModelForm):
     class Meta:

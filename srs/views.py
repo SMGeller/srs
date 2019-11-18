@@ -5,6 +5,7 @@ import re
 import subprocess
 import time
 import io
+import traceback
 
 import requests
 from django.contrib import messages
@@ -844,7 +845,7 @@ def import_notecard(request, pk):
     path = getPath(request, notefile_Name.directory) + notefile_Name.name + "/"
 
     if request.method == 'POST':
-        form = ImportForm(request.POST)
+        form = ImportForm(request.POST, request.FILES)
         if form.is_valid():
             #Get full path.
             cd = form.cleaned_data
@@ -853,37 +854,39 @@ def import_notecard(request, pk):
             notecards = Notecard.objects.filter(author=request.user).filter(notefile=notefile_Name)
             notecards_count_before = notecards.count()
             try:
-                readFile(request, path, pk)
+                readContent(request, request.FILES['file'], pk)
                 notecards_count_after = notecards.count()
                 if notecards_count_after > notecards_count_before:
                     return redirect('notecard_list', pk=pk)
                 else:
                     messages.info(request, 'The path you have entered is not valid.')
-            except:
+            except Exception as e:
                 messages.info(request, 'The path you have entered is not valid.')
+                traceback.print_exc()
+
     else:
         form = ImportForm()
 
     return render(request, 'srs/import_notecard.html', {'form': form, 'pk':pk, 'path': path})
 
-@login_required
-def readFile(request, path, notefilePK):
-    # open binary file in read-only mode
-    fileHandler = openFile(path, 'rb')
-    if fileHandler['opened']:
-        # create Django File object using python's file object
-        file = File(fileHandler['handler'])
-        readContent(request, file, notefilePK)
-        file.close()
+# @login_required
+# def readFile(request, path, notefilePK):
+#     # open binary file in read-only mode
+#     fileHandler = openFile(path, 'rb')
+#     if fileHandler['opened']:
+#         # create Django File object using python's file object
+#         file = File(fileHandler['handler'])
+#         readContent(request, file, notefilePK)
+#         file.close()
 
-def openFile(path, mode):
-    # open file using python's open method
-    # by default file gets opened in read mode
-    try:
-        fileHandler = open(path, mode)
-        return {'opened':True, 'handler':fileHandler}
-    except:
-        return {'opened':False, 'handler':None}
+# def openFile(path, mode):
+#     # open file using python's open method
+#     # by default file gets opened in read mode
+#     try:
+#         fileHandler = open(path, mode)
+#         return {'opened':True, 'handler':fileHandler}
+#     except:
+#         return {'opened':False, 'handler':None}
 
 def readContent(request, file, notefilePK):
     # we have at least empty file now
@@ -956,7 +959,7 @@ def init_notecard(request, keywords, header, body, notefilePK):
     if str_keywords != '' or str_header != '' or str_body != '':
         try:
             notefile_name = Notefile.objects.filter(author=request.user).get(pk=notefilePK)
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 user = User.objects.get(username=request.user.username)
                 Notecard.objects.create(author=user,name=str_header, keywords=str_keywords, body = str_body, notefile = notefile_name)
             else:
