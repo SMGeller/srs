@@ -13,6 +13,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.core import serializers
 from django.core.files import File
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from pytube import YouTube
@@ -859,9 +860,11 @@ def import_notecard(request, pk):
                 if notecards_count_after > notecards_count_before:
                     return redirect('notecard_list', pk=pk)
                 else:
-                    messages.info(request, 'The path you have entered is not valid.')
+                    messages.info(request, 'The file you have uploaded is not supported.')
+            except ValidationError as e:
+                messages.info(request, e);
             except Exception as e:
-                messages.info(request, 'The path you have entered is not valid.')
+                messages.info(request, 'The file you have uploaded is not supported.')
                 traceback.print_exc()
 
     else:
