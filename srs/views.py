@@ -859,9 +859,9 @@ def import_notecard(request, pk):
                 if notecards_count_after > notecards_count_before:
                     return redirect('notecard_list', pk=pk)
                 else:
-                    messages.info(request, 'The path you have entered is not valid.')
+                    messages.info(request, 'The file you have uploaded is not supported (.srsnote files only).')
             except Exception as e:
-                messages.info(request, 'The path you have entered is not valid.')
+                messages.info(request, 'The file you have uploaded is not supported (.srsnote files only).')
                 traceback.print_exc()
 
     else:
