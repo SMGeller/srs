@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from srs.models import Notefile, Notecard, Directory, Video, Audio, Document, Equation, Image
-
+from .validators import validateImportFile
 # Inheritances from UserCreationForm the user object with username, password1, and password2 fields.
 # Then, it adds first_name, last_name, and email fields. Also, it grands the staff permission to the user.
 class RegistrationForm(UserCreationForm):
@@ -33,7 +33,7 @@ class RegistrationForm(UserCreationForm):
 
 class ImportForm(forms.Form):
     # path = forms.CharField(label='Path', max_length=100)
-    file = forms.FileField()
+    file = forms.FileField(validators=[validateImportFile])
 
 class NotefileForm(forms.ModelForm):
     class Meta:

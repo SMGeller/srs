@@ -5,3 +5,4 @@ db.sqlite3
 .DS_Store
 my.cnf
 mysqlclient-1.4.4-cp38-cp38-win_amd64.whl
+get-pip.py
