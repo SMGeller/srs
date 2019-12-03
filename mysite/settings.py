@@ -103,7 +103,7 @@ if DJANGO_HOST == "production":
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'OPTIONS': {
-                'read_default_file': 'my.cnf',
+                'read_default_file': '/srv/appsroot/cise-srs/my.cnf',
             },
         }
     }
