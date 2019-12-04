@@ -1,9 +1,29 @@
-  ##Pushing Changes to Server##
-  https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/modwsgi/
-  > git pull
-  > python manage.py migrate #If changes made to models.py
-  > python manage.py collectstatic #If changes made to frontend files
-  > apachectl restart #Restart apache server to serve updates
+ ##Pushing Changes to Server##
+ https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/modwsgi/
+ > git pull
+ > python manage.py migrate #If changes made to models.py
+ > python manage.py collectstatic #If changes made to frontend files
+ > apachectl restart #Restart apache server to serve updates
+
+##Commands from documentation PDF###
+>python -m install --upgrade pip
+>pip install /path/to/mysqlclient.whl
+
+>git remote set-url origin <YOUR REPOSITORY URL>
+
+>git pull
+
+>python manage.py
+
+>cd /srv/appsroot/cise-srs/
+
+>source myvenv/bin/activate
+
+>python manage.py migrate
+
+>python manage.py collectstatic
+
+>apachectl restart
 
  ##Previous Deployment Commands##
   214  10/04/18 14:56:14 diff mysite/settings.py ~/settings.py 
